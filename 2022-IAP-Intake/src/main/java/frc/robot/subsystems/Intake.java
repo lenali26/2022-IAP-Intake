@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
+//where librairies are imported 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -20,6 +20,7 @@ private double flywheelTolerance = 0.05; // Tolerance of PID controller
 private boolean override = false; // Helps us switch from manual to auto
 private Timer overrideTimer = new Timer(); // We want a toggle button of some sorts
 private double overrideTime = 1.0;
+//setting new variables 
 
 private final WPI_TalonSRX intakeFlyWheel = new WPI_TalonSRX(Constants.ShooterPorts.LeftFlywheelPort);
 
@@ -34,13 +35,13 @@ private SimpleMotorFeedforward intakeFlyWheelFF = new  SimpleMotorFeedforward(Co
     intakeFlyWheel.configFactoryDefault();
     intakeFlyWheel.setInverted(true); 
     intakeFlyWheel.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-
+// resetting- making wheels turn in the same direction
    
     intakeFlyWheelPID.setTolerance(flywheelTolerance);
 
     overrideTimer.start(); // Start timer
     overrideTimer.reset(); // Reset timer
-
+// starting and resetting the timer 
   }
   public void setFlywheelPower(double speed) {
     intakeFlyWheel.set(speed);
@@ -77,7 +78,7 @@ private SimpleMotorFeedforward intakeFlyWheelFF = new  SimpleMotorFeedforward(Co
         public void resetFlywheelEncoders() {
         intakeFlyWheel.setSelectedSensorPosition(0, 0, 10);
         }
-        
+// this returns all the variables that we created in the code above
 
   @Override
   public void periodic() {
@@ -89,6 +90,7 @@ SmartDashboard.putNumber("Left Flywheel Power", getLeftFlywheelPower());
 SmartDashboard.putNumber("Right Flywheel RPM", getRightRPM());
 SmartDashboard.putNumber("Right Flywheel Power", getRightFlywheelPower());
 SmartDashboard.putNumber("Intake Flywheel Current", getCurrent());
+// trying to print out the values that is directed
 
 if (RobotContainer.getJoy1().getRawButton(2) && overrideTimer.get() >=  overrideTime) {
   override = !override;
@@ -104,7 +106,7 @@ if (RobotContainer.getJoy1().getRawButton(2) && overrideTimer.get() >=  override
     } else if (!override) { // Default manual override
     setFlywheelPower(-1.0*RobotContainer.getJoy1().getY());
     }
-      
+// this is to move the robot- it's using if else statements to determine how much the robot moves and how fast      
   }
 }
 
